@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Shopping-RabbitMQ</title>
+    <script type="text/javascript">
+        function order() {
+
+            var user = document.getElementById("user").value;
+            var email = document.getElementById("email").value;
+
+            const httpRequest = new XMLHttpRequest();
+            const url = "http://localhost:8080/shopping/order?user=" + user + "&product=book&email=" + email;
+            httpRequest.open("POST", url, true);
+            httpRequest.setRequestHeader("Content-Type", "application/json; charset=UTF-8");
+            httpRequest.send();
+
+            httpRequest.onreadystatechange = function() {
+                if(this.readyState === 4 && this.status === 200) {
+                    alert(httpRequest.responseText);
+                }
+            }
+        }
+    </script>
+</head>
+<body>
+<p>Product: book</p>
+<span>user: <input type="text" id="user" name="user" value="user" /></span>
+<span>email: <input type="text" id="email" name="email" value="email" /></span>
+<span><button type="button" onclick="order()">Order</button></span>
+</body>
+</html>
